@@ -1,0 +1,9 @@
+[submodule "modules/ladac"]
+	path = modules/ladac
+	url = ../ladac.git
+[submodule "modules/ladac-examples-data"]
+	path = modules/ladac-examples-data
+	url = ../ladac-examples-data.git
+[submodule "modules/matlab2tikz"]
+	path = modules/matlab2tikz
+	url = ../../matlab2tikz/matlab2tikz.git
