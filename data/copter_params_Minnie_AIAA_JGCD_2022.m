@@ -9,14 +9,14 @@
 
 %% body parameters
 % mass of vehicle, in kg
-copter.body.m = 0.430;
+copter.body.m = 0.29;
 % inertial matrix of vehicle, in kg.m^2
 I_13 = 1.78e-06;
 I_12 = 0;
 I_23 = 0;
 copter.body.I = [0.00108, I_12, I_13; ...
             I_12, 0.000792, I_23; ...
-            I_13, I_23, 0.00162];
+            I_13, I_23, 0.00162]*0.9;
 
 %% configuration parameters
 % center of gravity position in c frame, in m
@@ -59,7 +59,7 @@ copter.motor.R = 0.320;
 
 %% battery parameters
 % battery voltage, V
-copter.bat.V = 22.2;
+copter.bat.V = 11.1*1.1;
 
 % TODO
 %% aerodynamics
