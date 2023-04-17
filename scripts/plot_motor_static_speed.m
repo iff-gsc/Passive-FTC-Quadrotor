@@ -7,6 +7,7 @@ u = 0:0.01:1;
 omega = motorStaticSpeed(copter.motor.KT,copter.motor.R,copter.bat.V,d,u);
 omega_d0 = motorStaticSpeed(copter.motor.KT,copter.motor.R,copter.bat.V,0,u);
 
+figure
 plot(u,omega,'k-')
 hold on
 plot(u,omega_d0,'k--')
@@ -14,7 +15,7 @@ plot(u,omega_d0,'k--')
 set(gca,'TickLabelInterpreter','latex');
 ylim([0,max(omega_d0)])
 xlim([0,1])
-xlabel('Static Duty Cycle','interpreter','latex')
+xlabel('Static Throttle','interpreter','latex')
 ylabel('Motor Angular Velocity','interpreter','latex')
 set(gca,'XTick',[0,1], 'YTick', [0,max(omega_d0)])
 yticklabels({'0','$\frac{V_\mathrm{bat}}{K_T}$'});

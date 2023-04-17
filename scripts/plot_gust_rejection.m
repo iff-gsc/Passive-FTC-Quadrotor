@@ -52,6 +52,8 @@ n_z_g = n_z_g(idx(1:di:end));
 
 %%
 
+line_width = 1;
+
 figure
 [hAx,hLine1,hLine2]=plotyy(Time,[sqrt(x_g.^2+y_g.^2),z_g,sqrt(x_g_smeur.^2+y_g_smeur.^2),z_g_smeur],Time,[n_z_g(:),n_z_g_smeur(:)]);
 hLine1(3).LineStyle = '--';
@@ -61,8 +63,14 @@ hLine2(1).Color=hLine1(3).Color;
 hLine2(2).Color=hLine1(3).Color;
 hLine1(3).Color=hLine1(1).Color;
 hLine1(4).Color=hLine1(2).Color;
+for i = 1:length(hLine1)
+    hLine1(i).LineWidth = line_width;
+end
+for i = 1:length(hLine2)
+    hLine2(i).LineWidth = line_width;
+end
 xlabel('Time, s','interpreter','latex')
-hAx(1).XLim = [0,3];
+hAx(1).XLim = [0,Time_end];
 hAx(2).XLim = hAx(1).XLim;
 ylabel(hAx(1),'Position, m','interpreter','latex')
 legend([hLine1(1),hLine1(2),hLine2(1),hLine2(2)],'$\sqrt{x_g^2+y_g^2}$','$z_g$','$n_{z,g}$','interpreter','latex')

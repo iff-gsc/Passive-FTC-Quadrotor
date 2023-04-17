@@ -27,18 +27,18 @@ out = sim('QuadcopterSimModel_Loiter_FTC','StartTime','-2','StopTime',num2str(st
 
 plotRotorFailuresHover(out,'sim')
 
-% %% SITL
-% 
-% log_file_name = '00000273.BIN';
-% log_path = ['/home/yannic/PowerFolders/Quadcopter_motor_failure/Logs_SITL/',log_file_name];
-% out = Ardupilog( log_path );
-% 
-% plotMotorFailures(out,'sitl');
-% 
-% %% flight test
-% 
-% log_file_name = '00000102.BIN';
-% log_path = ['/home/yannic/PowerFolders/Quadcopter_motor_failure/Logs_Minnie/',log_file_name];
-% out = Ardupilog( log_path );
-% 
-% plotMotorFailures(out,'flighttest');
+%% SITL
+
+log_file_name = '00000338.BIN';
+log_path = ['/home/yannic/PowerFolders/Quadcopter_motor_failure/Logs_SITL/',log_file_name];
+out = Ardupilog( log_path );
+
+plotRotorFailuresHover(out,'sitl');
+
+%% flight test
+
+log_file_name = '00000171.BIN';
+log_path = ['/home/yannic/PowerFolders/Quadcopter_motor_failure/Logs_Minnie/',log_file_name];
+out = Ardupilog( log_path );
+
+plotRotorFailuresHover(out,'flighttest');

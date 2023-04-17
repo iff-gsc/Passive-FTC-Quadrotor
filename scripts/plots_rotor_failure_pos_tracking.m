@@ -9,7 +9,6 @@
 
 init_Minnie_Loiter_FTC;
 
-
 % disable stick inputs
 block = find_system('QuadcopterSimModel_Loiter_FTC','SearchDepth',1,'Name','Manual Switch');
 set_param(block{1}, 'sw', '1');
@@ -28,15 +27,15 @@ plotRotorFailuresPosTracking(out,1,1)
 
 %% SITL
 
-log_file_name = '00000273.BIN';
+log_file_name = '00000338.BIN';
 log_path = ['/home/yannic/PowerFolders/Quadcopter_motor_failure/Logs_SITL/',log_file_name];
 out = Ardupilog( log_path );
 
-plotRotorFailuresPosTracking(out,0,1);
+plotRotorFailuresPosTracking(out,0,1,1);
 
 %% flight test
 
-log_file_name = '00000102.BIN';
+log_file_name = '00000171.BIN';
 log_path = ['/home/yannic/PowerFolders/Quadcopter_motor_failure/Logs_Minnie/',log_file_name];
 out = Ardupilog( log_path );
 
@@ -50,12 +49,15 @@ tikzwidth = '\figurewidth';
 tikzheight = '\figureheight';
 tikzfontsize = '\tikzstyle{every node}=[font=\tikzfontsize]';
 extra_axis_options = {'ylabel style={font=\tikzfontsize}','xlabel style={font=\tikzfontsize}','legend style={at={(0.5,0.5)}, anchor=center}'};
+
+annotation('arrow', [.3 .5], [.15 .15]);
+
 matlab2tikz('compare_motor_failure_pattern.tex','width',tikzwidth,'height',tikzheight,'extraCode',tikzfontsize,'extraAxisOptions',extra_axis_options);
 
-figure(2)
-legend('x reference','y reference','x w/o EKF','y w/o EKF','x w/ EKF','y w/ EKF','x flight test','y flight test')
-tikzwidth = '\figurewidth';
-tikzheight = '\figureheight';
-tikzfontsize = '\tikzstyle{every node}=[font=\tikzfontsize]';
-extra_axis_options = {'ylabel style={font=\tikzfontsize}','xlabel style={font=\tikzfontsize}','legend style={at={(0.5,0.5)}, anchor=center}'};
-matlab2tikz('compare_motor_failure_pattern.tex','width',tikzwidth,'height',tikzheight,'extraCode',tikzfontsize,'extraAxisOptions',extra_axis_options);
+% figure(2)
+% legend('x reference','y reference','x w/o EKF','y w/o EKF','x w/ EKF','y w/ EKF','x flight test','y flight test')
+% tikzwidth = '\figurewidth';
+% tikzheight = '\figureheight';
+% tikzfontsize = '\tikzstyle{every node}=[font=\tikzfontsize]';
+% extra_axis_options = {'ylabel style={font=\tikzfontsize}','xlabel style={font=\tikzfontsize}','legend style={at={(0.5,0.5)}, anchor=center}'};
+% matlab2tikz('compare_motor_failure_pattern.tex','width',tikzwidth,'height',tikzheight,'extraCode',tikzfontsize,'extraAxisOptions',extra_axis_options);

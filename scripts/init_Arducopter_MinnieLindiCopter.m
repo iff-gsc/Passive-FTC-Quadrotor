@@ -1,4 +1,9 @@
 % init Arducopter Interface for quadcopter Minnie with autopilot Dragonfly
+% 
+% ATTENTION:
+%   THE FLIGHT TEST WITH THIS VERSION WAS NOT A SUCCESS!
+%   The copter simply flew straight up for reasons as yet unexplained, even
+%   when Custom Guided Mode was deactivated.
 
 % Disclamer:
 %   SPDX-License-Identifier: GPL-2.0-only
@@ -10,25 +15,20 @@
 % *************************************************************************
 
 %% add to path
-addPathFtc();
+cd ..
+addPathMinnie();
 clc_clear;
 
-%% controller parameters
-% load parameters
-copter = copterLoadParams( 'copter_params_Minnie_AIAA_JGCD_2022' );
-lindi = lindiCopterAutoCreate( copter, 'AgilityAtti', 0.5, 'AgilityPos', 0.2, 'CntrlEffectScaling', 0.95 );
-lindi.psc.inditype = 1;
-
-%% control inputs
-% fly 5m square after 5s
-simin = automatedStickCommands( );
+%% autopilot parameters
+copter = copterLoadParams( 'copter_params_Minnie' );
+lindi = lindiCopterAutoCreate( copter, 'AgilityAtti', 0.5,...
+    'AgilityPos', 0.2 );
 
 %% initialize the Ardupilot Interface
 ardupilotCreateInputBuses();
 
 %% change the main struct from double to float
 lindi = structDouble2Single(lindi);
-simin = structDouble2Single(simin);
 lindi.ts = double(lindi.ts);
 
 %% open Simulink model
