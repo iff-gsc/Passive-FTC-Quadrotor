@@ -7,3 +7,6 @@
 [submodule "modules/matlab2tikz"]
 	path = modules/matlab2tikz
 	url = ../../matlab2tikz/matlab2tikz.git
+[submodule "modules/ardupilog"]
+	path = modules/ardupilog
+	url = ../../Georacer/ardupilog.git

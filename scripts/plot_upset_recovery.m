@@ -1,9 +1,22 @@
+% Simulate and create Figure 9b: Upset recovery with and without
+% deactivated motor.
+
+% Disclamer:
+%   SPDX-License-Identifier: GPL-2.0-only
+% 
+% 	Copyright (C) 2022-2023 Yannic Beyer
+%   Copyright (C) 2022 TU Braunschweig, Institute of Flight Guidance
+% *************************************************************************
+
 addPathFtc();
 
-init_Minnie_Loiter_FTC
+init_Minnie_Loiter_FTC;
+
+is_tikz_export_desired = false;
+
+%% Simulate upset recovery without deactivated motor
 
 IC.q_bg = euler2Quat([pi;0;0]);
-
 
 % disable stick inputs
 block = find_system('QuadcopterSimModel_Loiter_FTC','SearchDepth',1,'Name','Manual Switch');
@@ -27,7 +40,7 @@ z_g = squeeze(out.s_g.Data(3,:,1:di:end));
 
 n_z_g = getNzg( out.Euler_angles.Data, di );
 
-%%
+%% Simulate upset recovery with deactived motor
 
 failure_time_mot_2      = 0;
 
@@ -40,7 +53,7 @@ z_g_fail = squeeze(out.s_g.Data(3,:,1:di:end));
 
 n_z_g_fail = getNzg( out.Euler_angles.Data, di );
 
-%%
+%% Plotting and formatting
 
 line_width = 1;
 
@@ -72,13 +85,15 @@ legend([hLine1(1),hLine1(2),hLine2(1),hLine2(2)],'$\sqrt{x_g^2+y_g^2}$','$z_g$',
 ylabel(hAx(2),'Vectical Lean Vector Component','interpreter','latex')
 grid on
 
-%%
+%% TikZ export
 
-tikzwidth = '\figurewidth';
-tikzheight = '\figureheight';
-tikzfontsize = '\tikzstyle{every node}=[font=\tikzfontsize]';
-extra_axis_options = {'ylabel style={font=\tikzfontsize}','xlabel style={font=\tikzfontsize}','legend style={font=\tikzfontsize}'};
-matlab2tikz('upset_recovery.tex','width',tikzwidth,'height',tikzheight,'extraCode',tikzfontsize,'extraAxisOptions',extra_axis_options);
+if is_tikz_export_desired
+    tikzwidth = '\figurewidth';
+    tikzheight = '\figureheight';
+    tikzfontsize = '\tikzstyle{every node}=[font=\tikzfontsize]';
+    extra_axis_options = {'ylabel style={font=\tikzfontsize}','xlabel style={font=\tikzfontsize}','legend style={font=\tikzfontsize}'};
+    matlab2tikz('upset_recovery.tex','width',tikzwidth,'height',tikzheight,'extraCode',tikzfontsize,'extraAxisOptions',extra_axis_options);
+end
 
 %%
 

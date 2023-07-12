@@ -1,11 +1,10 @@
-% init Arducopter Interface for quadcopter Minnie with autopilot Dragonfly
+% Initialize ArduCopter interface for quadcopter Minnie with fault-tolerant
+% loiter controller
 
 % Disclamer:
-%   SPDX-License-Identifier: GPL-2.0-only
+%   SPDX-License-Identifier: GPL-3.0-only
 % 
-% 	Copyright (C) 2022 Yannic Beyer
-% 	Copyright (C) 2022 Fabian Guecker
-% 	Copyright (C) 2022 Eike Bremers
+% 	Copyright (C) 2022-2023 Yannic Beyer
 %   Copyright (C) 2022 TU Braunschweig, Institute of Flight Guidance
 % *************************************************************************
 
@@ -32,4 +31,4 @@ simin = structDouble2Single(simin);
 lindi.ts = double(lindi.ts);
 
 %% open Simulink model
-open ArduCopter_MinnieLindiCopterFtc.slx
+open ArduCopter_MinnieLoiterFtc.slx

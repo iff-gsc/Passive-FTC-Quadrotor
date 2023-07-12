@@ -1,4 +1,16 @@
+% Create Figure 3: Static motor speed as a function of the static throttle
+% with and without drag factor d.
+
+% Disclamer:
+%   SPDX-License-Identifier: GPL-3.0-only
+% 
+% 	Copyright (C) 2022-2023 Yannic Beyer
+%   Copyright (C) 2022 TU Braunschweig, Institute of Flight Guidance
+% *************************************************************************
+
 addPathFtc();
+
+is_tikz_export_desired = false;
 
 [k,d]=propMapFitGetFactors(copter.prop.map_fit);
 
@@ -22,6 +34,8 @@ yticklabels({'0','$\frac{V_\mathrm{bat}}{K_T}$'});
 
 legend('$d>0$','$d=0$','location','northwest','interpreter','latex')
 
-extra_axis_options = {'ylabel style={font=\tikzfontsize}','xlabel style={font=\tikzfontsize}','legend style={font=\tikzfontsize}'};
-tikzfontsize = '\tikzstyle{every node}=[font=\tikzfontsize]';
-matlab2tikz('motor_speed_static.tex','width','\figurewidth','height','\figureheight','extraCode',tikzfontsize,'extraAxisOptions',extra_axis_options);
+if is_tikz_export_desired
+    extra_axis_options = {'ylabel style={font=\tikzfontsize}','xlabel style={font=\tikzfontsize}','legend style={font=\tikzfontsize}'};
+    tikzfontsize = '\tikzstyle{every node}=[font=\tikzfontsize]';
+    matlab2tikz('motor_speed_static.tex','width','\figurewidth','height','\figureheight','extraCode',tikzfontsize,'extraAxisOptions',extra_axis_options);
+end

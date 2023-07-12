@@ -17,7 +17,6 @@ addpath(genpath('modules'));
 addpath(genpath('models'));
 addpath(genpath('functions'));
 addpath(genpath('data'));
-addpath(genpath('ardupilog-master'));
 
 cd(this_file_path);
 

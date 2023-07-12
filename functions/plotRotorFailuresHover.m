@@ -1,4 +1,4 @@
-function plotRotorFailuresHover(data,type)
+function plotRotorFailuresHover(data,type,is_tikz_export_desired)
 
     switch type
         case 'sim'
@@ -64,9 +64,6 @@ function plotRotorFailuresHover(data,type)
             p = pf(idx_rate);
             q = qf(idx_rate);
             r = rf(idx_rate);
-%             p = data.ML3.p(idx_rate);
-%             q = data.ML3.q(idx_rate);
-%             r = data.ML3.r(idx_rate);
         catch
             [ idx_rate, Time_rate ] = logGetIdxTime( data.RATE.TimeS, Time_start, Time_end );
             p = data.RATE.R(idx_rate)*pi/180;
@@ -162,31 +159,9 @@ function plotRotorFailuresHover(data,type)
     legend([hLine1(1),hLine1(2),hLine1(3),hLine2(1)],'$x_g$','$y_g$','$z_g$','$n_{z,g}$','interpreter','latex')
     grid on
     
-    matlab2tikz([type,core_name,'pos.tex'],'width',tikzwidth,'height',tikzheight,'extraCode',tikzfontsize,'extraAxisOptions',extra_axis_options);
-
-    
-% [hAx,hLine1,hLine2]=plotyy(Time,[sqrt(x_g_fail.^2+y_g_fail.^2),z_g_fail,sqrt(x_g.^2+y_g.^2),z_g],Time,[n_z_g_fail(:),n_z_g(:)]);
-% hLine1(3).LineStyle = '--';
-% hLine1(4).LineStyle = '--';
-% hLine2(2).LineStyle = '--';
-% hLine2(1).Color=hLine1(3).Color;
-% hLine2(2).Color=hLine1(3).Color;
-% hLine1(3).Color=hLine1(1).Color;
-% hLine1(4).Color=hLine1(2).Color;
-% hLine2(2).Color=hLine2(1).Color;
-% 
-% xlabel('Time, s','interpreter','latex')
-% hAx(1).XLim = [0,Time_end];
-% hAx(2).XLim = hAx(1).XLim;
-% hAx(1).YLim = [0,4];
-% hAx(1).YTick=[0,1,2,3,4];
-% hAx(2).YLim=[-1,1];
-% hAx(2).YTick=[-1,-0.5,0,0.5,1];
-% ylabel(hAx(1),'Position, m','interpreter','latex')
-% legend([hLine1(1),hLine1(2),hLine2(1),hLine2(2)],'$\sqrt{x_g^2+y_g^2}$','$z_g$','$n_{z,g}$','interpreter','latex')
-% ylabel(hAx(2),'Vectical Lean Vector Component','interpreter','latex')
-% grid on
-    
+    if is_tikz_export_desired
+        matlab2tikz([type,core_name,'pos.tex'],'width',tikzwidth,'height',tikzheight,'extraCode',tikzfontsize,'extraAxisOptions',extra_axis_options);
+    end
     
     figure
     plot(Time_rate,p,'LineWidth',line_width)
@@ -200,8 +175,10 @@ function plotRotorFailuresHover(data,type)
     ylabel('Angular Velocity, rad/s','interpreter','latex')
     ylim(y_lim)
     legend('$p$','$q$','$r$','interpreter','latex','location','northeast','Orientation','horizontal')
-    matlab2tikz([type,core_name,'rates.tex'],'width',tikzwidth,'height',tikzheight,'extraCode',tikzfontsize,'extraAxisOptions',extra_axis_options);
-
+    if is_tikz_export_desired
+        matlab2tikz([type,core_name,'rates.tex'],'width',tikzwidth,'height',tikzheight,'extraCode',tikzfontsize,'extraAxisOptions',extra_axis_options);
+    end
+    
     if is_rpm_available
         figure
         plot(Time_esc,omega_1,'LineWidth',line_width)
@@ -216,7 +193,9 @@ function plotRotorFailuresHover(data,type)
         ylabel('Motor Speed, rad/s','interpreter','latex')
         ylim(y_lim)
         legend('$\omega_1$','$\omega_2$','$\omega_3$','$\omega_4$','interpreter','latex','location','northeast','NumColumns',2)
-        matlab2tikz([type,core_name,'motor_speed.tex'],'width',tikzwidth,'height',tikzheight,'extraCode',tikzfontsize,'extraAxisOptions',extra_axis_options2);
+        if is_tikz_export_desired
+            matlab2tikz([type,core_name,'motor_speed.tex'],'width',tikzwidth,'height',tikzheight,'extraCode',tikzfontsize,'extraAxisOptions',extra_axis_options2);
+        end
     end
     
     figure
@@ -232,8 +211,10 @@ function plotRotorFailuresHover(data,type)
     ylabel('Motor Command','interpreter','latex')
     ylim(y_lim)
     legend('$u_1$','$u_2$','$u_3$','$u_4$','interpreter','latex','location','east','NumColumns',2)
-    matlab2tikz([type,core_name,'input.tex'],'width',tikzwidth,'height',tikzheight,'extraCode',tikzfontsize,'extraAxisOptions',extra_axis_options2);
-
+    if is_tikz_export_desired
+        matlab2tikz([type,core_name,'input.tex'],'width',tikzwidth,'height',tikzheight,'extraCode',tikzfontsize,'extraAxisOptions',extra_axis_options2);
+    end
+    
 end
 
 function [ idx, Time_idx ] = logGetIdxTime( Time, Time_start, Time_end )

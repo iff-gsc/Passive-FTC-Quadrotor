@@ -1,18 +1,32 @@
+% Simulate and create Figure 9a: Lateral gust response compared with [20].
+
+% Disclamer:
+%   SPDX-License-Identifier: GPL-3.0-only
+% 
+% 	Copyright (C) 2022-2023 Yannic Beyer
+%   Copyright (C) 2022 TU Braunschweig, Institute of Flight Guidance
+% *************************************************************************
+
 addPathFtc();
 
-init_Minnie_Loiter_FTC
+init_Minnie_Loiter_FTC;
+
+is_tikz_export_desired = false;
+
+%% Configure Simulink model
 
 % disable stick inputs
 block = find_system('QuadcopterSimModel_Loiter_FTC','SearchDepth',1,'Name','Manual Switch');
 set_param(block{1}, 'sw', '0');
 
+% adjust wind configuration
 block = find_system('QuadcopterSimModel_Loiter_FTC/Environment','SearchDepth',1,'Name','Step');
 set_param(block{1}, 'Time', '0');
 set_param(block{1}, 'After', '[0;8.5;0]');
 block = find_system('QuadcopterSimModel_Loiter_FTC/Environment','SearchDepth',1,'Name','Gain1');
 set_param(block{1}, 'Gain', '1');
 
-
+% no rotor failures
 failure_time_mot_1      = 1000;
 failure_time_mot_2      = 1000;
 failure_time_mot_3      = 1000;
@@ -22,7 +36,7 @@ Time_end = 4;
 
 di = 4;
 
-%% Smeur
+%% Simulate wind step response using outer loop INDI from Smeur
 
 fm_loiter.psc.inditype = 2;
 
@@ -37,7 +51,7 @@ z_g_smeur = squeeze(out.s_g.Data(3,:,idx(1:di:end)));
 n_z_g_smeur = getNzg( out.Euler_angles.Data );
 n_z_g_smeur = n_z_g_smeur(idx(1:di:end));
 
-%%
+%% Simulate wind step response using outer loop INDI from this work
 
 fm_loiter.psc.inditype = 1;
 
@@ -50,7 +64,7 @@ z_g = squeeze(out.s_g.Data(3,:,idx(1:di:end)));
 n_z_g = getNzg( out.Euler_angles.Data );
 n_z_g = n_z_g(idx(1:di:end));
 
-%%
+%% Plotting and formatting
 
 line_width = 1;
 
@@ -77,15 +91,17 @@ legend([hLine1(1),hLine1(2),hLine2(1),hLine2(2)],'$\sqrt{x_g^2+y_g^2}$','$z_g$',
 ylabel(hAx(2),'Vertical Lean Vector Component','interpreter','latex')
 grid on
 
-%%
+%% Export figure to TikZ
 
-tikzwidth = '\figurewidth';
-tikzheight = '\figureheight';
-tikzfontsize = '\tikzstyle{every node}=[font=\tikzfontsize]';
-extra_axis_options = {'ylabel style={font=\tikzfontsize}','xlabel style={font=\tikzfontsize}','ticklabel style={/pgf/number format/fixed}','legend style={font=\tikzfontsize}'};
-matlab2tikz('gust.tex','width',tikzwidth,'height',tikzheight,'extraCode',tikzfontsize,'extraAxisOptions',extra_axis_options);
+if is_tikz_export_desired
+    tikzwidth = '\figurewidth';
+    tikzheight = '\figureheight';
+    tikzfontsize = '\tikzstyle{every node}=[font=\tikzfontsize]';
+    extra_axis_options = {'ylabel style={font=\tikzfontsize}','xlabel style={font=\tikzfontsize}','ticklabel style={/pgf/number format/fixed}','legend style={font=\tikzfontsize}'};
+    matlab2tikz('gust.tex','width',tikzwidth,'height',tikzheight,'extraCode',tikzfontsize,'extraAxisOptions',extra_axis_options);
+end
 
-%%
+%% Restore Simulink model configuration
 
 block = find_system('QuadcopterSimModel_Loiter_FTC/Environment','SearchDepth',1,'Name','Step');
 set_param(block{1}, 'Time', '3');

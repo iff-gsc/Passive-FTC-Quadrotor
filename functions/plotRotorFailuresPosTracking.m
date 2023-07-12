@@ -1,4 +1,4 @@
-function plotRotorFailuresPosTracking(data,is_sim,is_new_figure,is_sitl)
+function plotRotorFailuresPosTracking(data,is_sim,is_new_figure,is_sitl,is_tikz)
 
     if nargin < 4
         is_sitl = false;
@@ -81,8 +81,10 @@ function plotRotorFailuresPosTracking(data,is_sim,is_new_figure,is_sitl)
     box on
     xlabel('East Position, m','interpreter','latex')
     ylabel('North Position, m','interpreter','latex')
-    matlab2tikz('sim_motor_failure_pattern.tex','width',tikzwidth,'height',tikzheight,'extraCode',tikzfontsize,'extraAxisOptions',extra_axis_options);
-
+    if is_tikz
+        matlab2tikz('sim_motor_failure_pattern.tex','width',tikzwidth,'height',tikzheight,'extraCode',tikzfontsize,'extraAxisOptions',extra_axis_options);
+    end
+    
     if is_new_figure
         figure(2)
     end
@@ -102,8 +104,10 @@ function plotRotorFailuresPosTracking(data,is_sim,is_new_figure,is_sitl)
     box on
     xlabel('East Position, m','interpreter','latex')
     ylabel('North Position, m','interpreter','latex')
-    matlab2tikz('sim_motor_failure_pattern.tex','width',tikzwidth,'height',tikzheight,'extraCode',tikzfontsize,'extraAxisOptions',extra_axis_options);
-
+    if is_tikz
+        matlab2tikz('sim_motor_failure_pattern.tex','width',tikzwidth,'height',tikzheight,'extraCode',tikzfontsize,'extraAxisOptions',extra_axis_options);
+    end
+    
     if is_new_figure
         figure(3)
         hold on
@@ -116,7 +120,9 @@ function plotRotorFailuresPosTracking(data,is_sim,is_new_figure,is_sitl)
     box on
     xlabel('Time, s','interpreter','latex')
     ylabel('Velocity, m/s','interpreter','latex')
-    matlab2tikz('sim_motor_failure_pattern_vel.tex','width',tikzwidth,'height',tikzheight,'extraCode',tikzfontsize,'extraAxisOptions',extra_axis_options);
+    if is_tikz
+        matlab2tikz('sim_motor_failure_pattern_vel.tex','width',tikzwidth,'height',tikzheight,'extraCode',tikzfontsize,'extraAxisOptions',extra_axis_options);
+    end
 end
 
 function [ idx, Time_idx ] = logGetIdxTime( Time, Time_start, Time_end )
