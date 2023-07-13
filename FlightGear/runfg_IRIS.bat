@@ -1,1 +1,2 @@
-call ../modules/ladac-examples-data/FlightGear/runfg_IRIS.bat
+cd ../modules/ladac-examples-data/FlightGear
+call runfg_IRIS.bat
