@@ -8,10 +8,10 @@ This code can be used to reproduce the figures from [1], on the one hand, and to
 For further information see [1].
 
 <div align="center">
-<h3>Flight Test Video</h3>
-  <a href="https://youtu.be/g6vfgj2IRvE">
+<h3>Video Summary</h3>
+  <a href="https://youtu.be/GhvD7yhIK9s">
     <img 
-      src="https://img.youtube.com/vi/g6vfgj2IRvE/0.jpg" 
+      src="https://img.youtube.com/vi/GhvD7yhIK9s/0.jpg" 
       alt="Flight test" 
       style="width:50%;">
   </a>
@@ -64,11 +64,10 @@ To do: ArduPilot implementation
   - You can change the parameters `failure_...` in order to create different failure scenarios.
 - You can create the figures from [1] by running the `plot_...` files located in the _scripts_ folder.
 - You can implement the Simulink flight controller in ArduPilot in order to perform flight tests.
-T
   - Run [init_Arducopter_Minnie_FTC](scripts/init_Arducopter_Minnie_FTC.m) located in the _scripts_ folder.
   This will initialize and open the Simulink model [ArduCopter_MinnieLoiterFtc](models/ArduCopter_MinnieLoiterFtc.slx).
   - Click on the `Build Model` button in the menu of the Simulink model in order to generate C++ code.
   - Continue with the instructions in the Readme located in _modules/ladac/utilities/interfaces_external_programs/ArduPilot_custom_controller_.  
   - After successful implementation of the C++ code in ArduPilot you may want to perform SITL simulations before the flight test.
-  Therefore, use the initialization script [init_quadcopter_Minnie_ArduPilot_SITL](scripts/init_quadcopter_Minnie_ArduPilot_SITL.m) and follow the instructions in the Readme located in _modules/ladac/utilities/interfaces_external_programs/ArduPilot_SITL.
+  Therefore, use the initialization script [init_quadcopter_Minnie_ArduPilot_SITL](scripts/init_quadcopter_Minnie_ArduPilot_SITL.m) and follow the instructions in the Readme located in _modules/ladac/utilities/interfaces_external_programs/ArduPilot_SITL_.
   For the quadrotor Minnie you should load the ArduPilot parameters [Minnie.parm](data/Minnie.parm).
