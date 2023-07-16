@@ -51,11 +51,6 @@ For further information see [1].
 By default the quadrotor will be initialized in hover and start to fly a square after 5 seconds.
 The front right motor fails after 6 seconds.
 
-After some time the figures of Ref. [1] will appear.
-
-If you want to visualize the quadrotor, start FlightGear by executing `runfg_IRIS.sh` (Linux) or `runfg_IRIS.bat` which are located in _<passive-ftc-quadrotor>/modules/ladac-examples-data/FlightGear/_.
-
-To do: ArduPilot implementation
 
 ## How to use?
 
