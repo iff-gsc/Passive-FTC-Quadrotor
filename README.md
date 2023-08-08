@@ -20,7 +20,7 @@ For further information see [1].
 
 ## Reference
 
-[1] Beyer, Y., Steen, M., & Hecker, P. (2022). Incremental Passive Fault-Tolerant Control for Quadrotors Subjected to a Complete Rotor Failure.
+[1] Beyer, Y., Steen, M., & Hecker, P. (2023). Incremental Passive Fault-Tolerant Control for Quadrotors Subjected to a Complete Rotor Failure. _Journal of Guidance, Control, and Dynamics_, Advance online publication. https://doi.org/10.2514/1.G007475
 
 
 ## Installation
